@@ -1,0 +1,2 @@
+target/
+query-cli/src/main/resources/datasource.local.properties

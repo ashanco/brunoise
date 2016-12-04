@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="mondrian4.xsd"
+        name="testschema" metamodelVersion="4.0">
+  <PhysicalSchema>
+    <Table name="sale"></Table>
+    <Table name="customer" keyColumn="customer_id"></Table>
+  </PhysicalSchema>
+
+  <Cube name="Sales">
+    <Dimensions>
+      <Dimension name="Customer"
+                 table="customer"
+                 key="CustomerNumber">
+        <Attributes>
+          <Attribute name="CustomerNumber" keyColumn="customer_id"/>
+          <Attribute name="CustomerName" keyColumn="customer_name"/>
+        </Attributes>
+      </Dimension>
+    </Dimensions>
+    <MeasureGroups>
+      <MeasureGroup table="sale" name="Sale">
+        <Measures>
+          <Measure name="Amount" aggregator="sum" column="amount"></Measure>
+        </Measures>
+        <DimensionLinks>
+          <ForeignKeyLink dimension="Customer" foreignKeyColumn="customer_id"/>
+        </DimensionLinks>
+      </MeasureGroup>
+    </MeasureGroups>
+  </Cube>
+</Schema>
